@@ -1,12 +1,13 @@
-import { Box, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 interface FieldWrapperProps {
-  title?: string | `${number}`;
+  title: string | `${number}`;
   children?: React.ReactNode;
 }
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({ title, children }) => (
-  <Box
+  <Stack
+    spacing={1}
     sx={{
       padding: 2,
       border: (theme) => `1px ${theme.palette.divider} solid`,
@@ -14,14 +15,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({ title, children }) =
       backgroundColor: (theme) => theme.palette.divider,
     }}
   >
-    {title && (
-      <Typography
-        color={(theme) => theme.palette.text.secondary}
-        fontSize={14}
-      >
-        Title field
-      </Typography>
-    )}
+    <Typography
+      color={(theme) => theme.palette.text.secondary}
+      fontSize={14}
+    >
+      {title}
+    </Typography>
     {children}
-  </Box>
+  </Stack>
 );
