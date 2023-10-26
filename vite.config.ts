@@ -11,12 +11,16 @@ export default defineConfig({
         replacement: path.resolve(__dirname, 'src/pages'),
       },
       {
-        find: '~common',
-        replacement: path.resolve(__dirname, 'src/common'),
+        find: '~components/layout',
+        replacement: path.resolve(__dirname, 'src/components/layout'),
       },
       {
         find: '~router',
         replacement: path.resolve(__dirname, 'src/router'),
+      },
+      {
+        find: '~utils/store',
+        replacement: path.resolve(__dirname, 'src/utils/store'),
       },
       {
         find: '~utils/api',

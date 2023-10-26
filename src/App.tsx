@@ -1,6 +1,11 @@
-import { Button, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { Provider } from 'react-redux';
 
-const darkTheme = createTheme({
+import { Header } from '~components/layout';
+import { store } from '~utils/store';
+import { BuildForm } from '~pages';
+
+export const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
@@ -11,10 +16,9 @@ const darkTheme = createTheme({
     },
     background: {
       default: '#101014',
-      paper: '#101014',
     },
     text: {
-      primary: 'rgba(255 255 255 / 90%)',
+      primary: 'rgba(255, 255, 255, 0.9)',
     },
     info: {
       main: '#70c0e8',
@@ -31,42 +35,14 @@ const darkTheme = createTheme({
   },
 });
 
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#18a058',
-    },
-    secondary: {
-      main: '#4ac38d',
-    },
-    info: {
-      main: '#2080f0',
-    },
-    warning: {
-      main: '#f0a020',
-    },
-    error: {
-      main: '#d03050',
-    },
-    success: {
-      main: '#63e2b7',
-    },
-    background: {
-      default: '#FFFFFF',
-      paper: '#FFFFFF',
-    },
-  },
-});
-
 export const App = () => (
-  <ThemeProvider theme={darkTheme}>
-    <CssBaseline />
-    <Button
-      color="secondary"
-      variant="contained"
-    >
-      some button
-    </Button>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header />
+      <main>
+        <BuildForm />
+      </main>
+    </ThemeProvider>
+  </Provider>
 );
