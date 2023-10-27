@@ -14,9 +14,6 @@ export const theme = createTheme({
     secondary: {
       main: '#63e2b7',
     },
-    background: {
-      default: '#101014',
-    },
     text: {
       primary: 'rgba(255, 255, 255, 0.9)',
     },

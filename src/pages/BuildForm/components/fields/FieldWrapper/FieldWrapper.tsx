@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Paper } from '@mui/material';
 
 interface FieldWrapperProps {
   title: string | `${number}`;
@@ -6,21 +6,18 @@ interface FieldWrapperProps {
 }
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({ title, children }) => (
-  <Stack
-    spacing={1}
-    sx={{
-      padding: 2,
-      border: (theme) => `1px ${theme.palette.divider} solid`,
-      borderRadius: 1,
-      backgroundColor: (theme) => theme.palette.divider,
-    }}
+  <Paper
+    elevation={5}
+    sx={{ flexGrow: 1, padding: 2 }}
   >
-    <Typography
-      color={(theme) => theme.palette.text.secondary}
-      fontSize={14}
-    >
-      {title}
-    </Typography>
-    {children}
-  </Stack>
+    <Stack spacing={1}>
+      <Typography
+        color={(theme) => theme.palette.text.secondary}
+        fontSize={14}
+      >
+        {title}
+      </Typography>
+      {children}
+    </Stack>
+  </Paper>
 );
