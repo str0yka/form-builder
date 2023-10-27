@@ -1,11 +1,11 @@
 import { Stack, Typography, Paper } from '@mui/material';
 
-interface FieldWrapperProps {
+interface FormElementWrapperProps {
   title: string | `${number}`;
   children?: React.ReactNode;
 }
 
-export const FieldWrapper: React.FC<FieldWrapperProps> = ({ title, children }) => (
+export const FormElementWrapper: React.FC<FormElementWrapperProps> = ({ title, children }) => (
   <Paper
     elevation={3}
     sx={{ flexGrow: 1, padding: 2 }}

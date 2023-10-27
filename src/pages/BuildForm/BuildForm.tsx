@@ -9,39 +9,17 @@ import {
   Paper,
   IconButton,
   Typography,
-  Tooltip,
 } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { TextFieldElement, TitleField } from './components/fields';
+import { builderActions, getBuilder, useAppDispatch } from '~utils/store';
 
-type Element = 'TitleField' | 'TextField';
-
-interface FormElement<ElementType extends Element> {
-  id: number;
-  type: ElementType;
-}
-
-interface TitleFieldFormElement extends FormElement<'TitleField'> {
-  text: string;
-}
-
-interface TextFieldFormElement extends FormElement<'TextField'> {
-  required: boolean;
-  title?: string;
-  helperText?: string;
-  label?: string;
-}
-
-type FormElements = Array<TitleFieldFormElement | TextFieldFormElement>;
+import { FormElement } from './components';
 
 export const BuildForm = () => {
-  const [formElements, setFormElements] = useState<FormElements>([]);
-  const [selectedFormElementId, setSelectedFormElementId] = useState<null | number>(null);
+  const { elements, controlledElement } = useSelector(getBuilder);
 
-  const selectedFormElement =
-    selectedFormElementId !== null &&
-    formElements.find((formElement) => formElement.id === selectedFormElementId);
+  const dispatch = useAppDispatch();
 
   return (
     <Box
@@ -74,53 +52,17 @@ export const BuildForm = () => {
             },
           }}
         >
-          {formElements.map((formElement) => (
-            <Tooltip
-              placement="left"
-              title={
-                <Button
-                  color="error"
-                  onClick={() =>
-                    setFormElements((prevFormElements) =>
-                      prevFormElements.filter(
-                        (prevFormElement) => prevFormElement.id !== formElement.id,
-                      ),
-                    )
-                  }
-                >
-                  Delete
-                </Button>
-              }
-            >
-              <Box
-                key={formElement.id}
-                sx={{ cursor: 'pointer' }}
-                onClick={() => setSelectedFormElementId(formElement.id)}
-              >
-                {(() => {
-                  switch (formElement.type) {
-                    case 'TextField':
-                      return (
-                        <TextFieldElement
-                          label={formElement.label}
-                          title={formElement.title}
-                          helperText={formElement.helperText}
-                          required={formElement.required}
-                        />
-                      );
-                    case 'TitleField':
-                      return <TitleField text={formElement.text} />;
-                    default:
-                      return null;
-                  }
-                })()}
-              </Box>
-            </Tooltip>
+          {elements.map((element) => (
+            <FormElement
+              formElement={element}
+              onSelect={() => dispatch(builderActions.selectFormElement(element))}
+              onDelete={() => dispatch(builderActions.deleteElement(element.id))}
+            />
           ))}
         </Paper>
       </Container>
       <Paper sx={{ padding: 2, width: 400 }}>
-        {!selectedFormElement && (
+        {!controlledElement && (
           <Grid
             container
             columns={2}
@@ -134,12 +76,7 @@ export const BuildForm = () => {
               <Button
                 variant="outlined"
                 sx={{ width: '100%', height: '100%' }}
-                onClick={() =>
-                  setFormElements((prevFormElements) => [
-                    ...prevFormElements,
-                    { id: new Date().valueOf(), type: 'TextField', required: false },
-                  ])
-                }
+                onClick={() => dispatch(builderActions.addElement('TextField'))}
               >
                 Text Field
               </Button>
@@ -151,36 +88,29 @@ export const BuildForm = () => {
               <Button
                 variant="outlined"
                 sx={{ width: '100%', height: '100%' }}
-                onClick={() =>
-                  setFormElements((prevFormElements) => [
-                    ...prevFormElements,
-                    { id: new Date().valueOf(), type: 'TitleField', text: '' },
-                  ])
-                }
+                onClick={() => dispatch(builderActions.addElement('TitleField'))}
               >
                 Title Field
               </Button>
             </Grid>
           </Grid>
         )}
-        {selectedFormElement && selectedFormElement.type === 'TitleField' && (
+        {controlledElement && controlledElement.type === 'TitleField' && (
           <Stack spacing={2}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>Fill title field</Typography>
-              <IconButton onClick={() => setSelectedFormElementId(null)}>
+              <IconButton onClick={() => dispatch(builderActions.deselectFormElement())}>
                 <CloseIcon />
               </IconButton>
             </Box>
             <TextField
               label="Enter title"
-              value={selectedFormElement.text}
+              value={controlledElement.text || ''}
               onChange={(event) =>
-                setFormElements(
-                  formElements.map((formElement) => {
-                    if (formElement.id === selectedFormElement.id) {
-                      return { ...formElement, text: event.target.value };
-                    }
-                    return formElement;
+                dispatch(
+                  builderActions.updateElement({
+                    id: controlledElement.id,
+                    text: event.target.value,
                   }),
                 )
               }

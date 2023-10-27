@@ -1,3 +1,3 @@
-export * from './FieldWrapper/FieldWrapper';
-export * from './TitleField/TitleField';
-export * from './TextField/TextField';
+export * from './FormElementWrapper/FormElementWrapper';
+export * from './TitleFieldElement/TitleFieldElement';
+export * from './TextFieldElement/TextFieldElement';

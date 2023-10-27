@@ -28,6 +28,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'react/jsx-props-no-spreading': 0,
     '@typescript-eslint/restrict-template-expressions': 0,
     'no-param-reassign': 0,
     'import/extensions': 0,

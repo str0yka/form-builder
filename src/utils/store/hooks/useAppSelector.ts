@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
 
-import { AppStore } from '../store';
+import { RootState } from '../store';
 
-export const useAppSelector = useSelector<AppStore>;
+export const useAppSelector = useSelector<RootState>;

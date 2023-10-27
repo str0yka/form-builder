@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { themeReducer } from './theme';
+import { builderReducer } from './builder/builderSlice';
 
 export const store = configureStore({
   reducer: {
-    theme: themeReducer,
+    builder: builderReducer,
   },
 });
 
 export type AppDispatch = typeof store.dispatch;
-export type AppStore = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
