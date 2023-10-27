@@ -7,7 +7,7 @@ interface FieldWrapperProps {
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({ title, children }) => (
   <Paper
-    elevation={5}
+    elevation={3}
     sx={{ flexGrow: 1, padding: 2 }}
   >
     <Stack spacing={1}>

@@ -9,8 +9,9 @@ import {
   Paper,
   IconButton,
   Typography,
+  Tooltip,
 } from '@mui/material';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { TextFieldElement, TitleField } from './components/fields';
 
@@ -22,7 +23,7 @@ interface FormElement<ElementType extends Element> {
 }
 
 interface TitleFieldFormElement extends FormElement<'TitleField'> {
-  text?: string;
+  text: string;
 }
 
 interface TextFieldFormElement extends FormElement<'TextField'> {
@@ -36,7 +37,11 @@ type FormElements = Array<TitleFieldFormElement | TextFieldFormElement>;
 
 export const BuildForm = () => {
   const [formElements, setFormElements] = useState<FormElements>([]);
-  const [selectedFormElement, setSelectedFormElement] = useState<null | FormElements[number]>();
+  const [selectedFormElementId, setSelectedFormElementId] = useState<null | number>(null);
+
+  const selectedFormElement =
+    selectedFormElementId !== null &&
+    formElements.find((formElement) => formElement.id === selectedFormElementId);
 
   return (
     <Box
@@ -70,29 +75,47 @@ export const BuildForm = () => {
           }}
         >
           {formElements.map((formElement) => (
-            <Box
-              key={formElement.id}
-              sx={{ cursor: 'pointer' }}
-              onClick={() => setSelectedFormElement(formElement)}
+            <Tooltip
+              placement="left"
+              title={
+                <Button
+                  color="error"
+                  onClick={() =>
+                    setFormElements((prevFormElements) =>
+                      prevFormElements.filter(
+                        (prevFormElement) => prevFormElement.id !== formElement.id,
+                      ),
+                    )
+                  }
+                >
+                  Delete
+                </Button>
+              }
             >
-              {(() => {
-                switch (formElement.type) {
-                  case 'TextField':
-                    return (
-                      <TextFieldElement
-                        label={formElement.label}
-                        title={formElement.title}
-                        helperText={formElement.helperText}
-                        required={formElement.required}
-                      />
-                    );
-                  case 'TitleField':
-                    return <TitleField text={formElement.text} />;
-                  default:
-                    return null;
-                }
-              })()}
-            </Box>
+              <Box
+                key={formElement.id}
+                sx={{ cursor: 'pointer' }}
+                onClick={() => setSelectedFormElementId(formElement.id)}
+              >
+                {(() => {
+                  switch (formElement.type) {
+                    case 'TextField':
+                      return (
+                        <TextFieldElement
+                          label={formElement.label}
+                          title={formElement.title}
+                          helperText={formElement.helperText}
+                          required={formElement.required}
+                        />
+                      );
+                    case 'TitleField':
+                      return <TitleField text={formElement.text} />;
+                    default:
+                      return null;
+                  }
+                })()}
+              </Box>
+            </Tooltip>
           ))}
         </Paper>
       </Container>
@@ -114,7 +137,7 @@ export const BuildForm = () => {
                 onClick={() =>
                   setFormElements((prevFormElements) => [
                     ...prevFormElements,
-                    { id: prevFormElements.length, type: 'TextField', required: false },
+                    { id: new Date().valueOf(), type: 'TextField', required: false },
                   ])
                 }
               >
@@ -131,7 +154,7 @@ export const BuildForm = () => {
                 onClick={() =>
                   setFormElements((prevFormElements) => [
                     ...prevFormElements,
-                    { id: prevFormElements.length, type: 'TitleField' },
+                    { id: new Date().valueOf(), type: 'TitleField', text: '' },
                   ])
                 }
               >
@@ -140,11 +163,11 @@ export const BuildForm = () => {
             </Grid>
           </Grid>
         )}
-        {selectedFormElement?.type === 'TitleField' && (
+        {selectedFormElement && selectedFormElement.type === 'TitleField' && (
           <Stack spacing={2}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>Fill title field</Typography>
-              <IconButton onClick={() => setSelectedFormElement(null)}>
+              <IconButton onClick={() => setSelectedFormElementId(null)}>
                 <CloseIcon />
               </IconButton>
             </Box>
@@ -152,12 +175,12 @@ export const BuildForm = () => {
               label="Enter title"
               value={selectedFormElement.text}
               onChange={(event) =>
-                setFormElements((prevFormElements) =>
-                  prevFormElements.map((prevFormELement) => {
-                    if (prevFormELement.id === selectedFormElement.id) {
-                      return { ...prevFormELement, text: event.target.value };
+                setFormElements(
+                  formElements.map((formElement) => {
+                    if (formElement.id === selectedFormElement.id) {
+                      return { ...formElement, text: event.target.value };
                     }
-                    return prevFormELement;
+                    return formElement;
                   }),
                 )
               }
