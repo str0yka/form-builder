@@ -1,21 +1,29 @@
 type FormElementType = 'TitleField' | 'TextField';
 
-interface FormElementBase<ElementType extends FormElementType> {
+interface FormElementExtraAttributes {
+  TextField: {
+    required?: () => void;
+    title?: string;
+    helperText?: string;
+    label?: string;
+  };
+  TitleField: {
+    text?: string;
+  };
+}
+
+type FormElementConstructor<Type extends FormElementType> = {
   id: number;
-  type: ElementType;
-}
+  type: Type;
+  extraAttributes: FormElementExtraAttributes[Type];
+};
 
-interface TitleFieldFormElement extends FormElementBase<'TitleField'> {
-  text?: string;
-}
-
-interface TextFieldFormElement extends FormElementBase<'TextField'> {
-  required?: boolean;
-  title?: string;
-  helperText?: string;
-  label?: string;
-}
+type TitleFieldFormElement = FormElementConstructor<'TitleField'>;
+type TextFieldFormElement = FormElementConstructor<'TextField'>;
 
 type FormElement = TitleFieldFormElement | TextFieldFormElement;
 
-type FormElementProps<Element extends FormElement> = Omit<Element, 'id' | 'type'>;
+type FormElementProps<Type extends FormElementType> = FormElementExtraAttributes[Type] & {
+  onDelete: () => void;
+  onSelect: () => void;
+};

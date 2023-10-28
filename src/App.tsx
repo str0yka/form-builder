@@ -2,8 +2,8 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { Provider } from 'react-redux';
 
 import { Header } from '~components/layout';
+import { BuilderPage } from '~pages';
 import { store } from '~utils/store';
-import { BuildForm } from '~pages';
 
 export const theme = createTheme({
   palette: {
@@ -38,7 +38,7 @@ export const App = () => (
       <CssBaseline />
       <Header />
       <main>
-        <BuildForm />
+        <BuilderPage />
       </main>
     </ThemeProvider>
   </Provider>

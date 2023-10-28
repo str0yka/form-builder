@@ -35,7 +35,14 @@
       "~utils/contexts": ["./src/utils/contexts"],
       "~features/intl": ["src/features/intl"],
       "~features/theming": ["src/features/theming"]
-    }
+    },
+
+    /* Plugins */
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "include": ["src", "**/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

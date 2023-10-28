@@ -1,8 +1,9 @@
 import { RootState } from '../store';
 
-export const getBuilder = (state: RootState) => state.builder;
-
-export const getBuiledElements = (state: RootState) => state.builder.elements;
-
-export const getBuiledElementById = (id: number) => (state: RootState) =>
-  state.builder.elements.find((element) => element.id === id);
+export const builderSelectors = {
+  getState: (state: RootState) => state.builder,
+  getElements: (state: RootState) => state.builder.elements,
+  getElementById: (id: number) => (state: RootState) =>
+    state.builder.elements.find((element) => element.id === id),
+  getControlledElement: (state: RootState) => state.builder.controlledElement,
+};

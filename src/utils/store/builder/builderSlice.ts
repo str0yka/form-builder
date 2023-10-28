@@ -17,7 +17,7 @@ const builderSlice = createSlice({
     addElement: (state, action: { payload: FormElementType }) => {
       const type = action.payload;
 
-      state.elements.push({ id: new Date().valueOf(), type });
+      state.elements.push({ id: new Date().valueOf(), type, extraAttributes: {} });
     },
     deleteElement: (state, action: { payload: number }) => {
       const id = action.payload;
@@ -28,18 +28,23 @@ const builderSlice = createSlice({
         state.controlledElement = null;
       }
     },
-    updateElement: (state, action: { payload: Pick<FormElement, 'id'> & Partial<FormElement> }) => {
+    updateElement: (
+      state,
+      action: { payload: Pick<FormElement, 'id'> & Partial<FormElement['extraAttributes']> },
+    ) => {
       const { id, ...updatedFields } = action.payload;
 
-      const elementIndex = state.elements.findIndex((el) => el.id === id);
+      const element = state.elements.find((el) => el.id === id);
 
-      if (elementIndex === -1) return;
+      if (!element) return;
 
-      const element = state.elements[elementIndex];
-      const updatedElement = { ...element, ...updatedFields };
+      const updatedExtraAttributes = { ...element.extraAttributes, ...updatedFields };
 
-      state.elements[elementIndex] = updatedElement;
-      state.controlledElement = updatedElement;
+      element.extraAttributes = updatedExtraAttributes;
+
+      if (state.controlledElement?.id === element.id) {
+        state.controlledElement.extraAttributes = updatedExtraAttributes;
+      }
     },
     selectFormElement: (state, action: { payload: FormElement }) => {
       state.controlledElement = action.payload;
