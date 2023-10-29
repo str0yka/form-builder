@@ -1,24 +1,21 @@
 import { Typography } from '@mui/material';
 
-import { FormElementWrapper } from '../FormElementWrapper/FormElementWrapper';
+type TitleFieldElementProps = FormElementExtraAttributes['TitleField'];
 
-type TitleFieldElementProps = FormElementProps<'TitleField'>;
-
-export const TitleFieldElement: React.FC<TitleFieldElementProps> = ({
-  text,
-  onDelete,
-  onSelect,
-}) => (
-  <FormElementWrapper
-    title="Title field"
-    onDelete={onDelete}
-    onSelect={onSelect}
-  >
+export const TitleFieldElement: React.FC<TitleFieldElementProps> = ({ text }) => (
+  <>
+    <Typography
+      fontSize={14}
+      fontWeight={500}
+      color={(theme) => theme.palette.text.disabled}
+    >
+      Title Field
+    </Typography>
     <Typography
       fontSize={18}
       fontWeight={500}
     >
       {text || 'Empty title'}
     </Typography>
-  </FormElementWrapper>
+  </>
 );

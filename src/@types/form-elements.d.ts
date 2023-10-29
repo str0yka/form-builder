@@ -22,8 +22,3 @@ type TitleFieldFormElement = FormElementConstructor<'TitleField'>;
 type TextFieldFormElement = FormElementConstructor<'TextField'>;
 
 type FormElement = TitleFieldFormElement | TextFieldFormElement;
-
-type FormElementProps<Type extends FormElementType> = FormElementExtraAttributes[Type] & {
-  onDelete: () => void;
-  onSelect: () => void;
-};

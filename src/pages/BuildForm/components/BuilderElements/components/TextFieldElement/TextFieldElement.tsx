@@ -1,27 +1,23 @@
-import { TextField, FormHelperText } from '@mui/material';
+import { TextField, FormHelperText, Typography } from '@mui/material';
 
-import { FormElementWrapper } from '../FormElementWrapper/FormElementWrapper';
-
-type TextFieldElementProps = FormElementProps<'TextField'>;
+type TextFieldElementProps = FormElementExtraAttributes['TextField'];
 
 export const TextFieldElement: React.FC<TextFieldElementProps> = ({
   title,
   required,
   helperText,
   label,
-  onDelete,
-  onSelect,
 }) => (
-  <FormElementWrapper
-    title={`${title || 'TextField'}${required ? '*' : ''}`}
-    onDelete={onDelete}
-    onSelect={onSelect}
-  >
+  <>
+    <Typography
+      fontSize={14}
+      fontWeight={500}
+    >{`${title || 'TextField'}${required ? '*' : ''}`}</Typography>
     <TextField
       variant="outlined"
       label={label}
       disabled
     />
-    {helperText && <FormHelperText>{helperText}</FormHelperText>}
-  </FormElementWrapper>
+    <FormHelperText>{typeof helperText === 'string' ? helperText : 'Helper text'}</FormHelperText>
+  </>
 );

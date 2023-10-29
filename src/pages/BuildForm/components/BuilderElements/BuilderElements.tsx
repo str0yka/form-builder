@@ -1,7 +1,10 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography, IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { builderActions, builderSelectors, useAppDispatch } from '~utils/store';
 
+import s from './BuilderElements.module.css';
 import { TextFieldElement, TitleFieldElement } from './components';
 
 export const BuilderElements = () => {
@@ -9,34 +12,62 @@ export const BuilderElements = () => {
 
   const elements = useSelector(builderSelectors.getElements);
 
-  const getDefaultFormElementField = (element: FormElement) => ({
-    key: element.id,
-    onDelete: () => dispatch(builderActions.deleteElement(element.id)),
-    onSelect: () => dispatch(builderActions.selectFormElement(element)),
-  });
+  return (
+    <div className={s.elementsWrapper}>
+      <div className={s.elementsContainer}>
+        {!elements.length && (
+          <div className={s.elementsEmptyContainer}>
+            <Typography
+              fontSize={24}
+              fontWeight={500}
+            >
+              Drop here
+            </Typography>
+          </div>
+        )}
+        {!!elements.length &&
+          elements.map((element) => {
+            let Element;
 
-  return elements.map((element) => {
-    if (element.type === 'TextField') {
-      return (
-        <TextFieldElement
-          title={element.extraAttributes.title}
-          required={element.extraAttributes.required}
-          helperText={element.extraAttributes.helperText}
-          label={element.extraAttributes.label}
-          {...getDefaultFormElementField(element)}
-        />
-      );
-    }
+            if (element.type === 'TextField') {
+              Element = TextFieldElement;
+            }
 
-    if (element.type === 'TitleField') {
-      return (
-        <TitleFieldElement
-          text={element.extraAttributes.text}
-          {...getDefaultFormElementField(element)}
-        />
-      );
-    }
+            if (element.type === 'TitleField') {
+              Element = TitleFieldElement;
+            }
 
-    return null;
-  });
+            if (!Element) return null;
+
+            return (
+              <div className={s.elementWrapper}>
+                <div
+                  className={s.elementOverlay}
+                  aria-hidden="true"
+                  onClick={() => dispatch(builderActions.selectFormElement(element))}
+                >
+                  <Typography
+                    className={s.elementOverlayText}
+                    fontSize={14}
+                  >
+                    Click for properties or drag to move
+                  </Typography>
+                  <IconButton
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      dispatch(builderActions.deleteElement(element.id));
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+                <div className={s.elementContainer}>
+                  <Element {...element.extraAttributes} />
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
 };

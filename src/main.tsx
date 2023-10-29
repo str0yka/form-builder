@@ -6,6 +6,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import '~static/styles/global.css';
+import '~static/styles/zero.css';
 
 import { App } from './App';
 
