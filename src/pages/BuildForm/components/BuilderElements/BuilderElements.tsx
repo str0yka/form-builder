@@ -1,16 +1,16 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Typography, IconButton } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-import { builderActions, builderSelectors, useAppDispatch } from '~utils/store';
+import { builderSelectors } from '~utils/store';
 
 import s from './BuilderElements.module.css';
-import { TextFieldElement, TitleFieldElement } from './components';
+import { BuilderElement } from './components';
 
 export const BuilderElements = () => {
-  const dispatch = useAppDispatch();
-
-  const elements = useSelector(builderSelectors.getElements);
+  const elements = useSelector(
+    builderSelectors.getElements,
+    (a, b) => JSON.stringify(a) === JSON.stringify(b),
+  );
 
   return (
     <div className={s.elementsWrapper}>
@@ -25,48 +25,7 @@ export const BuilderElements = () => {
             </Typography>
           </div>
         )}
-        {!!elements.length &&
-          elements.map((element) => {
-            let Element;
-
-            if (element.type === 'TextField') {
-              Element = TextFieldElement;
-            }
-
-            if (element.type === 'TitleField') {
-              Element = TitleFieldElement;
-            }
-
-            if (!Element) return null;
-
-            return (
-              <div className={s.elementWrapper}>
-                <div
-                  className={s.elementOverlay}
-                  aria-hidden="true"
-                  onClick={() => dispatch(builderActions.selectFormElement(element))}
-                >
-                  <Typography
-                    className={s.elementOverlayText}
-                    fontSize={14}
-                  >
-                    Click for properties or drag to move
-                  </Typography>
-                  <IconButton
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      dispatch(builderActions.deleteElement(element.id));
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-                <div className={s.elementContainer}>
-                  <Element {...element.extraAttributes} />
-                </div>
-              </div>
-            );
-          })}
+        {!!elements.length && elements.map((element) => <BuilderElement element={element} />)}
       </div>
     </div>
   );

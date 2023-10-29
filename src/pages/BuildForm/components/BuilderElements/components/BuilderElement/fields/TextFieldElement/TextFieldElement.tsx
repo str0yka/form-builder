@@ -1,4 +1,4 @@
-import { TextField, FormHelperText, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 
 type TextFieldElementProps = FormElementExtraAttributes['TextField'];
 
@@ -17,7 +17,7 @@ export const TextFieldElement: React.FC<TextFieldElementProps> = ({
       variant="outlined"
       label={label}
       disabled
+      helperText={typeof helperText === 'string' ? helperText : 'Helper text'}
     />
-    <FormHelperText>{typeof helperText === 'string' ? helperText : 'Helper text'}</FormHelperText>
   </>
 );

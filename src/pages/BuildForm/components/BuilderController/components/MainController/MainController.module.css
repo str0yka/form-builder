@@ -1,0 +1,23 @@
+.mainControllerContainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  place-items: center;
+}
+
+.mainControllerButtonContainer {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 10px;
+  border: 1px rgba(255 255 255 / 5%) solid;
+  transition: background-color 200ms ease;
+}
+
+.mainControllerButtonContainer:hover {
+  background-color: rgba(255 255 255 / 5%);
+}
