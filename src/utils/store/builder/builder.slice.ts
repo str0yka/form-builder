@@ -58,6 +58,17 @@ const builderSlice = createSlice({
     deselectFormElement: (state) => {
       state.controlledElement = null;
     },
+    changeElementOrder: (state, action: { payload: { index?: number; id: FormElement['id'] } }) => {
+      const { id, index = state.elements.length - 1 } = action.payload;
+
+      const element = state.elements.find((el) => el.id === id);
+
+      if (!element) return;
+
+      state.elements = state.elements.filter((el) => el.id !== id);
+
+      state.elements.splice(index, 0, element);
+    },
     clear: (state) => {
       state.controlledElement = null;
       state.elements = [];

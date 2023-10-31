@@ -31,9 +31,14 @@ export const BuilderElements = () => {
           elementsContainerRef.current?.classList.remove(s.elementsContainerDragOver)
         }
         onDrop={(event) => {
-          const type = event.dataTransfer.getData('element-type') as FormElementType;
+          const type = event.dataTransfer.getData('element-type') as FormElementType | undefined;
+          const id = event.dataTransfer.getData('element-id');
 
-          dispatch(builderActions.addElement({ type }));
+          if (type) {
+            dispatch(builderActions.addElement({ type }));
+          } else if (id) {
+            dispatch(builderActions.changeElementOrder({ id: Number(id) }));
+          }
 
           elementsContainerRef.current?.classList.remove(s.elementsContainerDragOver);
         }}

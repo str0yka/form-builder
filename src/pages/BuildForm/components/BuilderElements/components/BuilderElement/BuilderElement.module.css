@@ -6,6 +6,10 @@
   cursor: pointer;
 }
 
+.elementWrapper.elementWrapperHidden {
+  display: none;
+}
+
 .elementDroppableOverlayUpper {
   position: absolute;
   right: 0;

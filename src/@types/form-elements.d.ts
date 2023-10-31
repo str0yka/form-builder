@@ -23,5 +23,6 @@ type FormElementConstructor<Type extends FormElementType> = {
 
 type TitleFieldFormElement = FormElementConstructor<'TitleField'>;
 type TextFieldFormElement = FormElementConstructor<'TextField'>;
+type SpaceFieldFormElement = FormElementConstructor<'SpaceField'>;
 
-type FormElement = TitleFieldFormElement | TextFieldFormElement;
+type FormElement = TitleFieldFormElement | TextFieldFormElement | SpaceFieldFormElement;
