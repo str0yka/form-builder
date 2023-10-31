@@ -1,2 +1,2 @@
-export * from './builderSelectors';
-export * from './builderSlice';
+export * from './builder.selectors';
+export * from './builder.slice';

@@ -7,16 +7,22 @@
 }
 
 .elementsContainer {
+  --elements-flex-gap: 16px;
+
   width: 920px;
   height: 800px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--elements-flex-gap);
   background-color: #161616;
   border-radius: 20px;
   border: 1px rgba(255 255 255 / 5%) solid;
   overflow: auto;
+}
+
+.elementsContainer.elementsContainerDragOver {
+  outline: 2px #fff solid;
 }
 
 .elementsEmptyContainer {

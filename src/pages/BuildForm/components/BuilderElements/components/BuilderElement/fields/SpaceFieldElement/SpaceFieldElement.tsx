@@ -1,21 +1,21 @@
 import { Typography } from '@mui/material';
 
-type TitleFieldElementProps = FormElementExtraAttributes['TitleField'];
+type SpaceFieldElementProps = FormElementExtraAttributes['SpaceField'];
 
-export const TitleFieldElement: React.FC<TitleFieldElementProps> = ({ title }) => (
+export const SpaceFieldElement: React.FC<SpaceFieldElementProps> = ({ height }) => (
   <>
     <Typography
       fontSize={14}
       fontWeight={500}
       color={(theme) => theme.palette.text.disabled}
     >
-      Title Field
+      Space Field
     </Typography>
     <Typography
       fontSize={18}
       fontWeight={500}
     >
-      {title}
+      {height}
     </Typography>
   </>
 );

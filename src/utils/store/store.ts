@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { builderReducer } from './builder/builderSlice';
+import { builderReducer } from './builder/builder.slice';
 
 export const store = configureStore({
   reducer: {

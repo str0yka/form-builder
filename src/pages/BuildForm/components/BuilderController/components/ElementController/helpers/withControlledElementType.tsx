@@ -1,4 +1,8 @@
-import { TextFieldController, TitleFieldController } from '../field-controllers';
+import {
+  SpaceFieldController,
+  TextFieldController,
+  TitleFieldController,
+} from '../field-controllers';
 
 export const withControlledElementType = (type: FormElementType) => {
   switch (type) {
@@ -7,6 +11,9 @@ export const withControlledElementType = (type: FormElementType) => {
     }
     case 'TitleField': {
       return TitleFieldController;
+    }
+    case 'SpaceField': {
+      return SpaceFieldController;
     }
     default: {
       return null;

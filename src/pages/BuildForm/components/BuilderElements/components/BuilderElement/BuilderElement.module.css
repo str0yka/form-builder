@@ -6,6 +6,22 @@
   cursor: pointer;
 }
 
+.elementDroppableOverlayUpper {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: calc(0px - (var(--elements-flex-gap) / 2));
+  bottom: 50%;
+}
+
+.elementDroppableOverlayLower {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: calc(0px - (var(--elements-flex-gap) / 2));
+  top: 50%;
+}
+
 .elementOverlay {
   display: none;
 }
@@ -36,6 +52,14 @@
   flex-direction: column;
   justify-content: center;
   gap: 8px;
+}
+
+.elementContainer.upperDragOver {
+  border-top: 2px #fff solid;
+}
+
+.elementContainer.lowerDragOver {
+  border-bottom: 2px #fff solid;
 }
 
 @keyframes overlay-flashing-text {

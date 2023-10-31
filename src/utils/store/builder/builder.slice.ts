@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { DEFAULT_EXTRA_ATTRIBUTES } from './builder.constants';
+
 interface BuilderState {
   controlledElement: FormElement | null;
   elements: FormElement[];
@@ -14,10 +16,14 @@ const builderSlice = createSlice({
   name: 'builder',
   initialState,
   reducers: {
-    addElement: (state, action: { payload: FormElementType }) => {
-      const type = action.payload;
+    addElement: (state, action: { payload: { type: FormElementType; index?: number } }) => {
+      const { type, index = state.elements.length } = action.payload;
+      const extraAttributes = DEFAULT_EXTRA_ATTRIBUTES[type];
+      const id = new Date().valueOf();
 
-      state.elements.push({ id: new Date().valueOf(), type, extraAttributes: {} });
+      const element = { id, type, extraAttributes } as FormElement;
+
+      state.elements.splice(index, 0, element);
     },
     deleteElement: (state, action: { payload: number }) => {
       const id = action.payload;

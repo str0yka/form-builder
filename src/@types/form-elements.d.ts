@@ -1,14 +1,17 @@
-type FormElementType = 'TitleField' | 'TextField';
+type FormElementType = 'TitleField' | 'TextField' | 'SpaceField';
 
 interface FormElementExtraAttributes {
   TextField: {
-    required?: () => void;
-    title?: string;
+    required: boolean;
+    title: string;
     helperText?: string;
     label?: string;
   };
   TitleField: {
-    text?: string;
+    title: string;
+  };
+  SpaceField: {
+    height: number;
   };
 }
 

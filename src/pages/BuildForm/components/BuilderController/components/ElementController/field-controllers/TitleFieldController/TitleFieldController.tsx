@@ -17,9 +17,9 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<typeof extraAttributes>({
+  } = useForm<FormElementExtraAttributes['TitleField']>({
     mode: 'onBlur',
-    defaultValues: extraAttributes,
+    values: extraAttributes,
   });
 
   return (
@@ -29,9 +29,9 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     >
       <TextField
         label="Title text"
-        error={!!errors.text?.message}
-        helperText={errors.text?.message}
-        {...register('text', {
+        error={!!errors.title?.message}
+        helperText={errors.title?.message}
+        {...register('title', {
           required: {
             value: true,
             message: 'Required field',

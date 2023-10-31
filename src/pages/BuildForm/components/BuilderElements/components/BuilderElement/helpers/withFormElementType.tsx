@@ -1,12 +1,15 @@
-import { TextFieldElement, TitleFieldElement } from '../fields';
+import { SpaceFieldElement, TextFieldElement, TitleFieldElement } from '../fields';
 
-export const withFormElementType = (type: FormElementType) => {
+export const withFormElementType = <Type extends FormElementType>(type: Type) => {
   switch (type) {
     case 'TextField': {
       return TextFieldElement;
     }
     case 'TitleField': {
-      return TitleFieldElement
+      return TitleFieldElement;
+    }
+    case 'SpaceField': {
+      return SpaceFieldElement;
     }
     default: {
       return null;
