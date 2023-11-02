@@ -28,6 +28,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'no-plusplus': 0,
     '@typescript-eslint/no-unsafe-return': 0,
     '@typescript-eslint/no-misused-promises': 0,
     'react/jsx-props-no-spreading': 0,

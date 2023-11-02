@@ -30,7 +30,7 @@
   display: none;
 }
 
-.elementWrapper:hover .elementOverlay {
+/* .elementWrapper:hover .elementOverlay {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -40,10 +40,10 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  z-index: 10;
+  z-index: 9;
   background-color: rgba(0 0 0 / 50%);
   border-radius: 5px;
-}
+} */
 
 .elementOverlayText {
   animation: overlay-flashing-text 1500ms alternate infinite;

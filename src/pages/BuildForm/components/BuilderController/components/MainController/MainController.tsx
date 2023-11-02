@@ -16,7 +16,8 @@ export const MainController = () => {
         className={s.mainControllerButtonContainer}
         draggable
         onDragStart={(event) => {
-          event.dataTransfer.setData('element-type', 'TitleField');
+          event.dataTransfer.setData('method', 'add');
+          event.dataTransfer.setData('type', 'TitleField');
         }}
         onClick={() => dispatch(builderActions.addElement({ type: 'TitleField' }))}
       >
@@ -28,7 +29,8 @@ export const MainController = () => {
         className={s.mainControllerButtonContainer}
         draggable
         onDragStart={(event) => {
-          event.dataTransfer.setData('element-type', 'TextField');
+          event.dataTransfer.setData('method', 'add');
+          event.dataTransfer.setData('type', 'TextField');
         }}
         onClick={() => dispatch(builderActions.addElement({ type: 'TextField' }))}
       >
@@ -40,7 +42,8 @@ export const MainController = () => {
         className={s.mainControllerButtonContainer}
         draggable
         onDragStart={(event) => {
-          event.dataTransfer.setData('element-type', 'SpaceField');
+          event.dataTransfer.setData('method', 'add');
+          event.dataTransfer.setData('type', 'SpaceField');
         }}
         onClick={() => dispatch(builderActions.addElement({ type: 'SpaceField' }))}
       >

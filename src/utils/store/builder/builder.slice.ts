@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { moveArrayElement, swapArrayElements } from '~utils/helpers';
+
 import { DEFAULT_EXTRA_ATTRIBUTES } from './builder.constants';
 
 interface BuilderState {
@@ -16,14 +18,14 @@ const builderSlice = createSlice({
   name: 'builder',
   initialState,
   reducers: {
-    addElement: (state, action: { payload: { type: FormElementType; index?: number } }) => {
-      const { type, index = state.elements.length } = action.payload;
+    addElement: (state, action: { payload: { type: FormElementType; toIndex?: number } }) => {
+      const { type, toIndex = state.elements.length } = action.payload;
       const extraAttributes = DEFAULT_EXTRA_ATTRIBUTES[type];
       const id = new Date().valueOf();
 
       const element = { id, type, extraAttributes } as FormElement;
 
-      state.elements.splice(index, 0, element);
+      state.elements.splice(toIndex, 0, element);
     },
     deleteElement: (state, action: { payload: number }) => {
       const id = action.payload;
@@ -52,26 +54,21 @@ const builderSlice = createSlice({
         state.controlledElement.extraAttributes = updatedExtraAttributes;
       }
     },
+    swapElements: (state, action: { payload: { firstIndex: number; secondIndex: number } }) => {
+      const { firstIndex, secondIndex } = action.payload;
+
+      state.elements = swapArrayElements(state.elements, firstIndex, secondIndex);
+    },
+    moveElement: (state, action: { payload: { fromIndex: number; toIndex: number } }) => {
+      const { fromIndex, toIndex } = action.payload;
+
+      state.elements = moveArrayElement(state.elements, fromIndex, toIndex);
+    },
     selectFormElement: (state, action: { payload: FormElement }) => {
       state.controlledElement = action.payload;
     },
     deselectFormElement: (state) => {
       state.controlledElement = null;
-    },
-    changeElementOrder: (state, action: { payload: { index?: number; id: FormElement['id'] } }) => {
-      const { id, index = state.elements.length - 1 } = action.payload;
-
-      const element = state.elements.find((el) => el.id === id);
-
-      if (!element) return;
-
-      state.elements = state.elements.filter((el) => el.id !== id);
-
-      state.elements.splice(index, 0, element);
-    },
-    clear: (state) => {
-      state.controlledElement = null;
-      state.elements = [];
     },
   },
 });

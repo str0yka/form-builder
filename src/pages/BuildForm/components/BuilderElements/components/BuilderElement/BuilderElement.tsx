@@ -14,6 +14,7 @@ interface BuilderElementProps {
 
 export const BuilderElement: React.FC<BuilderElementProps> = ({ index, element }) => {
   const elementRef = useRef<HTMLDivElement>(null);
+  const elementWrapperRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
 
@@ -23,57 +24,88 @@ export const BuilderElement: React.FC<BuilderElementProps> = ({ index, element }
 
   if (!FieldFormElement) return null;
 
-  const getDragAndDropOverlayAttributes = (disposition: 'lower' | 'upper') => {
-    const onDragOver = (event: React.DragEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      elementRef.current?.classList.add(
-        disposition === 'upper' ? s.upperDragOver : s.lowerDragOver,
-      );
-    };
-
-    const onDragLeave = () =>
-      elementRef.current?.classList.remove(
-        disposition === 'upper' ? s.upperDragOver : s.lowerDragOver,
-      );
-
-    const onDrop = (event: React.DragEvent) => {
-      event.stopPropagation();
-
-      const type = event.dataTransfer.getData('element-type') as FormElementType | undefined;
-      const id = event.dataTransfer.getData('element-id');
-
-      if (type) {
-        dispatch(builderActions.addElement({ type, index }));
-      } else if (id) {
-        const indx = disposition === 'upper' ? index : index + 1;
-        dispatch(builderActions.changeElementOrder({ id: Number(id), index: indx }));
-      }
-
-      elementRef.current?.classList.remove(
-        disposition === 'upper' ? s.upperDragOver : s.lowerDragOver,
-      );
-    };
-
-    return { onDragOver, onDragLeave, onDrop };
-  };
-
   return (
     <div
+      ref={elementWrapperRef}
       className={s.elementWrapper}
       draggable
       onDragStart={(event) => {
-        event.dataTransfer.setData('element-id', element.id.toString());
+        setTimeout(() => elementWrapperRef.current?.classList.add(s.elementWrapperHidden), 0);
+        event.dataTransfer.setData('method', 'swap');
+        event.dataTransfer.setData('index', `${index}`);
+      }}
+      onDragEnd={() => elementWrapperRef.current?.classList.remove(s.elementWrapperHidden)}
+      onDragOver={(event) => {
+        event.preventDefault();
       }}
     >
       <div
         className={s.elementDroppableOverlayUpper}
-        {...getDragAndDropOverlayAttributes('upper')}
+        onDrop={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const method = event.dataTransfer.getData('method');
+
+          if (method === 'swap') {
+            const firstIndex = Number(event.dataTransfer.getData('index'));
+            const secondIndex = firstIndex < index ? index - 1 : index;
+            dispatch(builderActions.swapElements({ firstIndex, secondIndex }));
+          }
+
+          if (method === 'add') {
+            const type = event.dataTransfer.getData('type') as FormElementType;
+            const toIndex = index;
+
+            dispatch(builderActions.addElement({ type, toIndex }));
+          }
+
+          elementRef.current?.classList.remove(s.upperDragOver);
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          elementRef.current?.classList.add(s.upperDragOver);
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          elementRef.current?.classList.remove(s.upperDragOver);
+        }}
       />
       <div
         className={s.elementDroppableOverlayLower}
-        {...getDragAndDropOverlayAttributes('lower')}
+        onDrop={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const method = event.dataTransfer.getData('method');
+
+          if (method === 'swap') {
+            const firstIndex = Number(event.dataTransfer.getData('index'));
+            const secondIndex = firstIndex < index ? index : index + 1;
+            dispatch(builderActions.swapElements({ firstIndex, secondIndex }));
+          }
+
+          if (method === 'add') {
+            const type = event.dataTransfer.getData('type') as FormElementType;
+            const toIndex = index + 1;
+
+            dispatch(builderActions.addElement({ type, toIndex }));
+          }
+
+          elementRef.current?.classList.remove(s.lowerDragOver);
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          elementRef.current?.classList.add(s.lowerDragOver);
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          elementRef.current?.classList.remove(s.lowerDragOver);
+        }}
       />
       <div
         className={s.elementOverlay}

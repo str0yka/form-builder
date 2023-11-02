@@ -31,13 +31,23 @@ export const BuilderElements = () => {
           elementsContainerRef.current?.classList.remove(s.elementsContainerDragOver)
         }
         onDrop={(event) => {
-          const type = event.dataTransfer.getData('element-type') as FormElementType | undefined;
-          const id = event.dataTransfer.getData('element-id');
+          const method = event.dataTransfer.getData('method');
 
-          if (type) {
-            dispatch(builderActions.addElement({ type }));
-          } else if (id) {
-            dispatch(builderActions.changeElementOrder({ id: Number(id) }));
+          if (method === 'swap') {
+            const fromIndex = Number(event.dataTransfer.getData('index'));
+            const toIndex = elements.length - 1;
+            dispatch(
+              builderActions.moveElement({
+                fromIndex,
+                toIndex,
+              }),
+            );
+          }
+
+          if (method === 'add') {
+            const type = event.dataTransfer.getData('type') as FormElementType;
+            const toIndex = elements.length;
+            dispatch(builderActions.addElement({ type, toIndex }));
           }
 
           elementsContainerRef.current?.classList.remove(s.elementsContainerDragOver);
