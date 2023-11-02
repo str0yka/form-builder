@@ -11,4 +11,23 @@ export const DEFAULT_EXTRA_ATTRIBUTES: FormElementExtraAttributes = {
   TitleField: {
     title: 'Title field',
   },
+  SeparatorField: {},
+  SubtitleField: {
+    subtitle: 'Subtitle',
+  },
+  ParagraphField: {
+    text: 'Paragraph',
+  },
+  DateField: {
+    required: false,
+    title: 'Date field',
+    helperText: 'Helper text',
+    label: 'Label',
+  },
+  NumberField: {
+    required: false,
+    title: 'Number field',
+    helperText: 'Helper text',
+    label: 'Label',
+  },
 };

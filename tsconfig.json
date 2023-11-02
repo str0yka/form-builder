@@ -44,6 +44,6 @@
       }
     ]
   },
-  "include": ["src", "**/*.d.ts"],
+  "include": ["src", "**/*.d.ts", "**/**.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

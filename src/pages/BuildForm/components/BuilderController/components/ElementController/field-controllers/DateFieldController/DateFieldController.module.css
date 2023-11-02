@@ -1,0 +1,26 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formRequiredItemContainer {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px rgba(255 255 255 / 5%) solid;
+}
+
+.formRequiredItem {
+  display: flex;
+  flex-direction: column;
+}

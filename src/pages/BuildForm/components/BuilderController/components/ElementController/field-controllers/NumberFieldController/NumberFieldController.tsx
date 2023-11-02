@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 
 import { builderActions, useAppDispatch } from '~utils/store';
 
-import s from './TextFieldController.module.css';
+import s from './NumberFieldController.module.css';
 
-type TextFieldControllerProps = { id: number } & FormElementExtraAttributes['TextField'];
+type NumberFieldControllerProps = { id: number } & FormElementExtraAttributes['NumberField'];
 
-export const TextFieldController: React.FC<TextFieldControllerProps> = ({
+export const NumberFieldController: React.FC<NumberFieldControllerProps> = ({
   id,
   ...extraAttributes
 }) => {

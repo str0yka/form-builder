@@ -1,4 +1,12 @@
-import { SpaceFieldElement, TextFieldElement, TitleFieldElement } from '../fields';
+import {
+  DateFieldElement,
+  NumberFieldElement,
+  SeparatorFieldElement,
+  SpaceFieldElement,
+  SubtitleFieldElement,
+  TextFieldElement,
+  TitleFieldElement,
+} from '../fields';
 
 export const withFormElementType = <Type extends FormElementType>(type: Type) => {
   switch (type) {
@@ -10,6 +18,18 @@ export const withFormElementType = <Type extends FormElementType>(type: Type) =>
     }
     case 'SpaceField': {
       return SpaceFieldElement;
+    }
+    case 'SeparatorField': {
+      return SeparatorFieldElement;
+    }
+    case 'SubtitleField': {
+      return SubtitleFieldElement;
+    }
+    case 'NumberField': {
+      return NumberFieldElement;
+    }
+    case 'DateField': {
+      return DateFieldElement;
     }
     default: {
       return null;

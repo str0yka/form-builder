@@ -13,7 +13,9 @@ interface ElementControllerProps {
 export const ElementController: React.FC<ElementControllerProps> = ({ controlledElement }) => {
   const dispatch = useAppDispatch();
 
-  const FieldController = withControlledElementType(controlledElement.type);
+  const FieldController = withControlledElementType(controlledElement.type) as React.FC<
+    { id: number } & FormElementExtraAttributes[typeof controlledElement.type]
+  >;
 
   if (!FieldController) return null;
 

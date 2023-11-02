@@ -1,4 +1,6 @@
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Provider } from 'react-redux';
 
 import { Header } from '~components/layout';
@@ -33,13 +35,15 @@ export const theme = createTheme({
 });
 
 export const App = () => (
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Header />
-      <main>
-        <BuilderPage />
-      </main>
-    </ThemeProvider>
-  </Provider>
+  <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+        <main>
+          <BuilderPage />
+        </main>
+      </ThemeProvider>
+    </Provider>
+  </LocalizationProvider>
 );

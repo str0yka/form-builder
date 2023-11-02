@@ -29,6 +29,8 @@ export const BuilderElement: React.FC<BuilderElementProps> = ({ index, element }
       ref={elementWrapperRef}
       className={s.elementWrapper}
       draggable
+      aria-hidden="true"
+      onClick={() => dispatch(builderActions.selectFormElement(element))}
       onDragStart={(event) => {
         setTimeout(() => elementWrapperRef.current?.classList.add(s.elementWrapperHidden), 0);
         event.dataTransfer.setData('method', 'swap');

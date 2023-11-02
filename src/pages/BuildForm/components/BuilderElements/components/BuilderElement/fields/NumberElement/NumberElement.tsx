@@ -1,8 +1,8 @@
 import { TextField, Typography } from '@mui/material';
 
-type TextFieldElementProps = FormElementExtraAttributes['TextField'];
+type NumberFieldElementProps = FormElementExtraAttributes['NumberField'];
 
-export const TextFieldElement: React.FC<TextFieldElementProps> = ({
+export const NumberFieldElement: React.FC<NumberFieldElementProps> = ({
   title,
   required,
   helperText,
@@ -17,6 +17,7 @@ export const TextFieldElement: React.FC<TextFieldElementProps> = ({
       {required && '*'}
     </Typography>
     <TextField
+      type="number"
       variant="outlined"
       label={label}
       disabled

@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 
 import { builderActions, useAppDispatch } from '~utils/store';
 
-import s from './TitleFieldController.module.css';
+import s from './ParagraphFieldController.module.css';
 
-type TitleFieldControllerProps = { id: number } & FormElementExtraAttributes['TitleField'];
+type ParagraphFieldControllerProps = { id: number } & FormElementExtraAttributes['ParagraphField'];
 
-export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
+export const ParagraphFieldController: React.FC<ParagraphFieldControllerProps> = ({
   id,
   ...extraAttributes
 }) => {
@@ -17,7 +17,7 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormElementExtraAttributes['TitleField']>({
+  } = useForm({
     mode: 'onBlur',
     values: extraAttributes,
   });
@@ -29,13 +29,15 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     >
       <TextField
         label="Title text"
-        error={!!errors.title?.message}
-        helperText={errors.title?.message}
-        {...register('title', {
+        error={!!errors.text?.message}
+        helperText={errors.text?.message}
+        {...register('text', {
           required: {
             value: true,
             message: 'Required field',
           },
+          minLength: 2,
+          maxLength: 500,
         })}
       />
     </form>

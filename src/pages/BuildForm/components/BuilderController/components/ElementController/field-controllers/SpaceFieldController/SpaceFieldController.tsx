@@ -5,7 +5,7 @@ import { builderActions, useAppDispatch } from '~utils/store';
 
 import s from './SpaceFieldController.module.css';
 
-type SpaceFieldControllerProps = Pick<FormElement, 'id'> & FormElementExtraAttributes['SpaceField'];
+type SpaceFieldControllerProps = { id: number } & FormElementExtraAttributes['SpaceField'];
 
 export const SpaceFieldController: React.FC<SpaceFieldControllerProps> = ({
   id,

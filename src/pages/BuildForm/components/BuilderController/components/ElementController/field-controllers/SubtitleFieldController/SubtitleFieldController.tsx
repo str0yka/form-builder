@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 
 import { builderActions, useAppDispatch } from '~utils/store';
 
-import s from './TitleFieldController.module.css';
+import s from './SubtitleFieldController.module.css';
 
-type TitleFieldControllerProps = { id: number } & FormElementExtraAttributes['TitleField'];
+type SubtitleFieldControllerProps = { id: number } & FormElementExtraAttributes['SubtitleField'];
 
-export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
+export const SubtitleFieldController: React.FC<SubtitleFieldControllerProps> = ({
   id,
   ...extraAttributes
 }) => {
@@ -17,7 +17,7 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormElementExtraAttributes['TitleField']>({
+  } = useForm({
     mode: 'onBlur',
     values: extraAttributes,
   });
@@ -29,13 +29,15 @@ export const TitleFieldController: React.FC<TitleFieldControllerProps> = ({
     >
       <TextField
         label="Title text"
-        error={!!errors.title?.message}
-        helperText={errors.title?.message}
-        {...register('title', {
+        error={!!errors.subtitle?.message}
+        helperText={errors.subtitle?.message}
+        {...register('subtitle', {
           required: {
             value: true,
             message: 'Required field',
           },
+          minLength: 2,
+          maxLength: 50,
         })}
       />
     </form>
