@@ -30,6 +30,25 @@ interface FormElementExtraAttributes {
     helperText?: string;
     label?: string;
   };
+  SelectField: {
+    required: boolean;
+    title: string;
+    helperText?: string;
+    label?: string;
+    options: { id: number; text: string }[];
+  };
+  CheckboxField: {
+    required: boolean;
+    title: string;
+    helperText?: string;
+    label?: string;
+  };
+  TextareaField: {
+    required: boolean;
+    title: string;
+    helperText?: string;
+    label?: string;
+  };
 }
 
 type FormElementType = keyof FormElementExtraAttributes;
@@ -48,6 +67,8 @@ type SubtitleFieldFormElement = FormElementConstructor<'SubtitleField'>;
 type ParagraphFieldFormElement = FormElementConstructor<'ParagraphField'>;
 type DateFieldFormElement = FormElementConstructor<'DateField'>;
 type NumberFieldFormElement = FormElementConstructor<'NumberField'>;
+type SelectFieldFormElement = FormElementConstructor<'SelectField'>;
+type TextareaFieldFormElement = FormElementConstructor<'TextareaField'>;
 
 type FormElement =
   | TitleFieldFormElement
@@ -57,4 +78,6 @@ type FormElement =
   | SubtitleFieldFormElement
   | ParagraphFieldFormElement
   | DateFieldFormElement
-  | NumberFieldFormElement;
+  | NumberFieldFormElement
+  | SelectFieldFormElement
+  | TextareaFieldFormElement;

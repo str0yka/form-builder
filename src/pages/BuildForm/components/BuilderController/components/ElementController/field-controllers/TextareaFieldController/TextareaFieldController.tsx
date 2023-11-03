@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 
 import { builderActions, useAppDispatch } from '~utils/store';
 
-import s from './DateFieldController.module.css';
+import s from './TextareaFieldController.module.css';
 
-type DateFieldControllerProps = { id: number } & FormElementExtraAttributes['DateField'];
+type TextareaFieldControllerProps = { id: number } & FormElementExtraAttributes['TextareaField'];
 
-export const DateFieldController: React.FC<DateFieldControllerProps> = ({
+export const TextareaFieldController: React.FC<TextareaFieldControllerProps> = ({
   id,
   ...extraAttributes
 }) => {

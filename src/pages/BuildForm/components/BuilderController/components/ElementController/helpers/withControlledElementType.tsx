@@ -1,11 +1,14 @@
 import {
+  CheckboxFieldController,
   DateFieldController,
   NumberFieldController,
   ParagraphFieldController,
+  SelectFieldController,
   SeparatorFieldController,
   SpaceFieldController,
   SubtitleFieldController,
   TextFieldController,
+  TextareaFieldController,
   TitleFieldController,
 } from '../field-controllers';
 
@@ -34,6 +37,15 @@ export const withControlledElementType = <Type extends FormElementType>(type: Ty
     }
     case 'NumberField': {
       return NumberFieldController;
+    }
+    case 'SelectField': {
+      return SelectFieldController;
+    }
+    case 'CheckboxField': {
+      return CheckboxFieldController;
+    }
+    case 'TextareaField': {
+      return TextareaFieldController;
     }
     default: {
       return null;

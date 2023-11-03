@@ -28,9 +28,11 @@ export const ParagraphFieldController: React.FC<ParagraphFieldControllerProps> =
       onBlur={handleSubmit((values) => dispatch(builderActions.updateElement({ id, ...values })))}
     >
       <TextField
-        label="Title text"
+        label="Paragraph text"
         error={!!errors.text?.message}
         helperText={errors.text?.message}
+        multiline
+        rows={4}
         {...register('text', {
           required: {
             value: true,

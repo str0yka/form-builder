@@ -1,7 +1,7 @@
 export const DEFAULT_EXTRA_ATTRIBUTES: FormElementExtraAttributes = {
   TextField: {
     required: false,
-    title: 'Title field',
+    title: 'Text field',
     helperText: 'Helper text',
     label: 'Label',
   },
@@ -27,6 +27,25 @@ export const DEFAULT_EXTRA_ATTRIBUTES: FormElementExtraAttributes = {
   NumberField: {
     required: false,
     title: 'Number field',
+    helperText: 'Helper text',
+    label: 'Label',
+  },
+  SelectField: {
+    required: false,
+    title: 'Select field',
+    helperText: 'Helper text',
+    label: 'Label',
+    options: [],
+  },
+  CheckboxField: {
+    required: false,
+    title: 'Checkbox field',
+    helperText: 'Helper text',
+    label: 'Label',
+  },
+  TextareaField: {
+    required: false,
+    title: 'Textarea field',
     helperText: 'Helper text',
     label: 'Label',
   },

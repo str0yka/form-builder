@@ -19,7 +19,7 @@ export const TextFieldController: React.FC<TextFieldControllerProps> = ({
     formState: { errors },
   } = useForm<typeof extraAttributes>({
     mode: 'onBlur',
-    defaultValues: extraAttributes,
+    values: extraAttributes,
   });
 
   return (

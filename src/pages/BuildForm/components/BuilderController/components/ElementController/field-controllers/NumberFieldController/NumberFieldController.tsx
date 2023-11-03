@@ -19,7 +19,7 @@ export const NumberFieldController: React.FC<NumberFieldControllerProps> = ({
     formState: { errors },
   } = useForm<typeof extraAttributes>({
     mode: 'onBlur',
-    defaultValues: extraAttributes,
+    values: extraAttributes,
   });
 
   return (

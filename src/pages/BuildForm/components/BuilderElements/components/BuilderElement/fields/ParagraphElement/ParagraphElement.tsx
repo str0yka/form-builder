@@ -9,7 +9,7 @@ export const ParagraphFieldElement: React.FC<ParagraphFieldElementProps> = ({ te
       fontWeight={500}
       color={(theme) => theme.palette.text.disabled}
     >
-      Subtitle Field
+      Paragraph Field
     </Typography>
     <Typography
       fontSize={18}

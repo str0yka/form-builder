@@ -6,3 +6,6 @@ export * from './SubtitleFieldController/SubtitleFieldController';
 export * from './ParagraphFieldController/ParagraphFieldController';
 export * from './NumberFieldController/NumberFieldController';
 export * from './DateFieldController/DateFieldController';
+export * from './SelectFieldController/SelectFieldController';
+export * from './CheckboxFieldController/CheckboxFieldController';
+export * from './TextareaFieldController/TextareaFieldController';

@@ -5,3 +5,7 @@ export * from './SeparatorElement/SeparatorElement';
 export * from './SubtitleElement/SubtitleElement';
 export * from './DateElement/DateElement';
 export * from './NumberElement/NumberElement';
+export * from './SelectElement/SelectElement';
+export * from './CheckboxElement/CheckboxElement';
+export * from './ParagraphElement/ParagraphElement';
+export * from './TextareaElement/TextareaElement';

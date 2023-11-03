@@ -8,8 +8,10 @@ export const BuilderPage = () => (
         <BuilderElements />
       </div>
     </div>
-    <aside className={s.asideContainer}>
-      <BuilderController />
-    </aside>
+    <div className={s.asideWrapper}>
+      <aside className={s.asideContainer}>
+        <BuilderController />
+      </aside>
+    </div>
   </div>
 );
