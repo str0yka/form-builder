@@ -106,7 +106,7 @@ export const SelectFieldController: React.FC<SelectFieldControllerProps> = ({
           </Typography>
           <Button
             variant="outlined"
-            onClick={() => append({ id: fields.length, text: '' })}
+            onClick={() => append({ id: new Date().valueOf(), text: '' })}
           >
             Add
           </Button>

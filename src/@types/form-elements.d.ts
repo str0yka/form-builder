@@ -69,6 +69,7 @@ type DateFieldFormElement = FormElementConstructor<'DateField'>;
 type NumberFieldFormElement = FormElementConstructor<'NumberField'>;
 type SelectFieldFormElement = FormElementConstructor<'SelectField'>;
 type TextareaFieldFormElement = FormElementConstructor<'TextareaField'>;
+type CheckboxFieldFormElement = FormElementConstructor<'CheckboxField'>;
 
 type FormElement =
   | TitleFieldFormElement
@@ -80,4 +81,5 @@ type FormElement =
   | DateFieldFormElement
   | NumberFieldFormElement
   | SelectFieldFormElement
-  | TextareaFieldFormElement;
+  | TextareaFieldFormElement
+  | CheckboxFieldFormElement;
